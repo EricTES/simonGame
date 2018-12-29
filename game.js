@@ -74,7 +74,7 @@ function startOver(){
   level = 0;
   gamePattern = [];
   userClickedPattern = [];
-  $('#level-title').html('Game Over, Press Any Key to Restart');
+  $('#level-title').html('You suck Clitty, Press Any Key to Restart');
   $('body').addClass('game-over');
 
   setTimeout(function(){
