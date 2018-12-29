@@ -4,8 +4,11 @@ var randomChosenColour;
 var gamePattern = [];
 var userChosenColor;
 var userClickedPattern = [];
+var indexOfClickedPattern = 0;
 var started = false;
+var clickAllowed = false;
 var level = 0;
+
 
 
 $(document).keypress(function() {
@@ -23,6 +26,7 @@ function nextSequence() {
   gamePattern.push(randomChosenColour);
   playButtonSound(randomChosenColour);
   $('#' + randomChosenColour).fadeOut(35).fadeIn(35);
+  clickAllowed = true;
 }
 
 function playButtonSound(buttonColor) {
@@ -53,16 +57,18 @@ function animatePress(currentColor) {
   }, 100);
 }
 
-function sequenceCheck(currentLevel) {
-  userClickedButton = userClickedPattern[currentLevel];
-  gamePatternButton = gamePattern[currentLevel];
+function sequenceCheck(index) {
+  userClickedButton = userClickedPattern[index];
+  gamePatternButton = gamePattern[index];
 
   if (userClickedButton !== gamePatternButton) {
     (new Audio('sounds/wrong.mp3')).play();
     startOver();
 
   } else if (userClickedPattern.length === gamePattern.length) {
+    clickAllowed = false;
     userClickedPattern = [];
+    indexOfClickedPattern = 0;
     setTimeout(function() {
       nextSequence();
     }, 1000);
@@ -74,7 +80,8 @@ function startOver(){
   level = 0;
   gamePattern = [];
   userClickedPattern = [];
-  $('#level-title').html('You suck Clitty, Press Any Key to Restart');
+  $('#level-title').html('Game Over, Press Any Key to Restart');
+  $('.container').append('<p style="color:white">You suk Clitty!!!. Hehe Joke lang. 为什么这么笨？<p>')
   $('body').addClass('game-over');
 
   setTimeout(function(){
@@ -87,9 +94,11 @@ function startOver(){
 
 
 $('.btn').on('click', function() {
-  userChosenColor = $(this).attr('id');
-  playButtonSound(userChosenColor);
-  animatePress(userChosenColor);
-  userClickedPattern.push(userChosenColor);
-  sequenceCheck(userClickedPattern.indexOf(userChosenColor));
+  if(started && clickAllowed){
+    userChosenColor = $(this).attr('id');
+    playButtonSound(userChosenColor);
+    animatePress(userChosenColor);
+    userClickedPattern.push(userChosenColor);
+    sequenceCheck(indexOfClickedPattern++);
+  }
 });
