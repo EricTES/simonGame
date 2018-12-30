@@ -14,6 +14,7 @@ var level = 0;
 $(document).keypress(function() {
   if (!started) {
     started = true;
+    $('p').remove();
     nextSequence();
   }
 });
