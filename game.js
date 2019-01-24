@@ -83,7 +83,7 @@ function startOver(){
   userClickedPattern = [];
   indexOfClickedPattern = 0;
   $('#level-title').html('Game Over, Press Any Key to Restart');
-  $('.container').append('<p style="color:white">You suk Clitty!!!. Hehe Joke lang. 为什么这么笨？<p>')
+  $('.container').append('<p style="color:white">You suk Cibai kia!!!. Hehe Joke lah. 为什么这么笨？<p>')
   $('body').addClass('game-over');
 
   setTimeout(function(){
